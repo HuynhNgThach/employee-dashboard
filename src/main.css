@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "montserrat", sans-serif;
+}
+body,
+html,
+#root {
+  height: 100%;
+}
+body {
+  background-color: #1f1d1d !important;
+}
+
+img {
+  object-fit: cover;
+}
+svg {
+  margin: 0;
+}

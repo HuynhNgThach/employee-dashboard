@@ -1,38 +1,134 @@
-import * as React from "react"
+import * as React from "react";
 import {
   ChakraProvider,
   Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
   theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+  Flex,
+  Image,
+  Text,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+} from "@chakra-ui/react";
+import banner from "./images/HeaderImage/godfatherHeader.jpg";
+import SideBar from "./components/SideBar";
+import { employees } from "./data.js";
+import { Employee } from "./utils/type";
+import { HiMenu } from "react-icons/hi";
+import { IoMdClose } from "react-icons/io";
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
+export const App = () => {
+  const [employeeSelected, setEmployeeSelected] = React.useState<Employee>(
+    employees[0]
+  );
+  const [openSideBarMb, setOpenSideBarMb] = React.useState<boolean>(false);
+
+  return (
+    <ChakraProvider theme={theme}>
+      <Box height="100%" zIndex={1}>
+        <Box
+          sx={{
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${banner})`,
+            height: "40%",
+            width: "100%",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            position: "relative",
+          }}
+        ></Box>
+        <Box
+          display={{
+            base: "block",
+            md: "none",
+          }}
+          position="fixed"
+          top="10px"
+          left="10px"
+          fontSize="3xl"
+          cursor="pointer"
+          zIndex={9999}
+          onClick={() => {
+            setOpenSideBarMb(!openSideBarMb);
+          }}
+        >
+          {openSideBarMb ? <IoMdClose /> : <HiMenu />}
+        </Box>
+        <SideBar
+          isShowSidebar={openSideBarMb}
+          listPersons={employees}
+          employeeSelected={employeeSelected}
+          setEmployeeSelected={setEmployeeSelected}
+          closeSideBar={() => {
+            setOpenSideBarMb(false);
+          }}
+        />
+        <Box
+          ml={{
+            base: "0",
+            md: "350px",
+          }}
+          mt="-50px"
+          zIndex="9"
+          position="relative"
+          px={4}
+        >
+          <Flex
+            gap={8}
+            flexDirection={{
+              base: "column",
+              md: "row",
+            }}
+            alignItems={{
+              base: "center",
+              md: "flex-start",
+            }}
           >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
-  </ChakraProvider>
-)
+            <Image
+              boxSize="100px"
+              src={
+                process.env.PUBLIC_URL + "ProfilePics/" + employeeSelected.image
+              }
+              objectFit="cover"
+              alt="Dan Abramov"
+              border="1px solid #aaa"
+              borderRadius={4}
+              sx={{
+                boxShadow: "13px 10px 26px  rgba(0,0,0,0.5);",
+              }}
+            />
+            <Box
+              w={{
+                base: "100%",
+                lg: "70%",
+              }}
+            >
+              <Text fontSize="3xl" fontWeight="bold">
+                {employeeSelected.name}
+              </Text>
+              <Flex gap={5} mt={6}>
+                <Text>Popularity</Text>
+                <Slider
+                  aria-label="slider-ex-2"
+                  colorScheme={"blackAlpha"}
+                  value={employeeSelected.popularity}
+                >
+                  <SliderTrack>
+                    <SliderFilledTrack />
+                  </SliderTrack>
+                  <SliderThumb />
+                </Slider>
+              </Flex>
+              <Box p="5" background="#0e0e0e6d" borderRadius={4} mt="5">
+                <Text fontSize="xl" mb={2}>
+                  Biography
+                </Text>
+                <Text color="#ccc">{employeeSelected.biography}</Text>
+              </Box>
+            </Box>
+          </Flex>
+        </Box>
+      </Box>
+    </ChakraProvider>
+  );
+};
