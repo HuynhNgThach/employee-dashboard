@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c81e8364.css",
+    "main.js": "/static/js/main.d6b3faf0.js",
+    "static/media/godfatherHeader.jpg": "/static/media/godfatherHeader.1d382fd21286964f741d.jpg",
+    "static/media/godfather.svg": "/static/media/godfather.504ba0933b571be608dd25b4bbe47c38.svg",
+    "index.html": "/index.html",
+    "main.c81e8364.css.map": "/static/css/main.c81e8364.css.map",
+    "main.d6b3faf0.js.map": "/static/js/main.d6b3faf0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c81e8364.css",
+    "static/js/main.d6b3faf0.js"
+  ]
+}

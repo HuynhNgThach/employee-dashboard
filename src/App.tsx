@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   ChakraProvider,
   Box,
-  theme,
   Flex,
   Image,
   Text,
@@ -17,6 +16,7 @@ import { employees } from "./data.js";
 import { Employee } from "./utils/type";
 import { HiMenu } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
+import { theme } from "./chakra/theme";
 
 export const App = () => {
   const [employeeSelected, setEmployeeSelected] = React.useState<Employee>(
